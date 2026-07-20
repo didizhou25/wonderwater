@@ -1,0 +1,324 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display: 'Fraunces', ui-serif, Georgia, 'Times New Roman', serif;
+
+    /* WonderWater brand palette — deliberately restrained: near-black,
+       warm bone paper, and a single glacial accent used sparingly. */
+    --color-ink: #0a0d0c;
+    --color-ink-soft: #121614;
+    --color-paper: #f6f4ee;
+    --color-paper-dim: #ece8de;
+    --color-mist: #dedbd0;
+    --color-wonder: #b8f3e4;
+    --color-wonder-deep: #0f6a5a;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: var(--font-sans);
+    }
+
+    ::selection {
+        background-color: var(--color-wonder);
+        color: var(--color-ink);
+    }
+}
+
+@layer utilities {
+    .font-display {
+        font-family: var(--font-display);
+    }
+
+    /* Scroll-reveal: elements start hidden/offset, JS flips [data-revealed] on. */
+    [data-reveal] {
+        opacity: 0;
+        transform: translateY(1.25rem);
+        transition:
+            opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+            transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-reveal][data-revealed='true'] {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        [data-reveal] {
+            opacity: 1;
+            transform: none;
+            transition: none;
+        }
+    }
+
+    /* Generative visual 1 — hydrogen bubbles rising through water (hero). */
+    .bubble {
+        position: absolute;
+        bottom: -6%;
+        left: var(--bubble-left, 50%);
+        width: var(--bubble-size, 8px);
+        height: var(--bubble-size, 8px);
+        border-radius: 9999px;
+        opacity: 0;
+        filter: blur(var(--bubble-blur, 0.3px));
+        animation: wonderwater-rise var(--bubble-duration, 14s) linear infinite;
+        animation-delay: var(--bubble-delay, 0s);
+    }
+
+    .bubble--dark {
+        background:
+            radial-gradient(circle at 30% 26%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.2) 14%, transparent 30%),
+            radial-gradient(circle at 55% 62%, color-mix(in oklab, var(--color-wonder) 55%, transparent) 0%, transparent 75%);
+        box-shadow:
+            inset 0 0 0 1px color-mix(in oklab, var(--color-wonder) 45%, transparent),
+            0 0 7px color-mix(in oklab, var(--color-wonder) 25%, transparent);
+    }
+
+    .bubble--light {
+        background:
+            radial-gradient(circle at 30% 26%, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.15) 14%, transparent 30%),
+            radial-gradient(circle at 55% 62%, color-mix(in oklab, var(--color-wonder-deep) 45%, transparent) 0%, transparent 75%);
+        box-shadow:
+            inset 0 0 0 1px color-mix(in oklab, var(--color-wonder-deep) 32%, transparent),
+            0 0 6px color-mix(in oklab, var(--color-wonder-deep) 16%, transparent);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .bubble {
+            animation: none;
+            opacity: var(--bubble-opacity, 0.25);
+            bottom: 30%;
+        }
+    }
+
+    /* Generative visual 2 — orbiting molecule (technology section). */
+    .orbit-ring {
+        transform-origin: center;
+        animation: wonderwater-orbit linear infinite;
+        animation-duration: var(--orbit-duration, 20s);
+        animation-direction: var(--orbit-direction, normal);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .orbit-ring {
+            animation: none;
+        }
+    }
+
+    /* Generative visual 3 — illustrations that draw themselves in on reveal. */
+    .draw-path {
+        stroke-dasharray: 900;
+        stroke-dashoffset: 900;
+        transition: stroke-dashoffset 2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-revealed='true'] .draw-path {
+        stroke-dashoffset: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .draw-path {
+            stroke-dashoffset: 0;
+            transition: none;
+        }
+    }
+
+    /* Liquid rising into view (flask fill-line) — plays after the outline draws in. */
+    .rise-in {
+        opacity: 0;
+        transform: translateY(8px);
+        transition:
+            opacity 1s cubic-bezier(0.16, 1, 0.3, 1) 1.4s,
+            transform 1s cubic-bezier(0.16, 1, 0.3, 1) 1.4s;
+    }
+
+    [data-revealed='true'] .rise-in {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* A slow, continuous breathing scale — used on the nucleus, droplet, and tech icons. */
+    .breathe {
+        transform-origin: center;
+        animation: wonderwater-pulse 5s ease-in-out infinite;
+    }
+
+    /* A connecting line that draws downward on reveal. */
+    .line-draw {
+        transform-origin: top;
+        transform: scaleY(0);
+        opacity: 0;
+        transition:
+            transform 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s,
+            opacity 0.6s ease-out 0.3s;
+    }
+
+    [data-revealed='true'] .line-draw {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .rise-in,
+        .line-draw {
+            opacity: 1;
+            transform: none;
+            transition: none;
+        }
+
+        .breathe {
+            animation: none;
+        }
+    }
+
+    /* Shared premium hover: buttons/cards ease with the same signature curve. */
+    .ease-premium {
+        transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Kinetic word-by-word text reveal. JS wraps each word in .split-mask > .split-inner
+       and sets --split-i per word; CSS below handles the actual hidden/revealed states.
+       Gated behind .js-ready (set by a blocking inline script) so a no-JS visitor still
+       sees plain, fully visible text — nothing depends on the split for readability. */
+    .js-ready [data-split] .split-mask {
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: top;
+    }
+
+    .js-ready [data-split] .split-inner {
+        display: inline-block;
+        transform: translateY(110%);
+        transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+        transition-delay: calc(var(--split-i, 0) * 45ms);
+    }
+
+    .js-ready [data-split][data-split-revealed='true'] .split-inner {
+        transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .js-ready [data-split] .split-inner {
+            transform: none;
+            transition: none;
+        }
+    }
+
+    /* Infinite marquee ticker — two identical tracks side by side, shifted by -50%. */
+    .marquee-track {
+        animation: wonderwater-marquee var(--marquee-duration, 26s) linear infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .marquee-track {
+            animation: none;
+        }
+    }
+
+    /* Horizontal drag/scroll strip (science parameters). */
+    .snap-strip {
+        scroll-snap-type: x proximity;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .snap-strip::-webkit-scrollbar {
+        display: none;
+    }
+
+    .snap-strip > * {
+        scroll-snap-align: start;
+    }
+
+    /* Custom cursor — desktop with a precise pointer only; touch devices keep the native one. */
+    @media (pointer: fine) {
+        .js-ready {
+            cursor: none;
+        }
+
+        .js-ready a,
+        .js-ready button,
+        .js-ready input,
+        .js-ready label {
+            cursor: none;
+        }
+    }
+
+    .cursor-dot {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 10px;
+        height: 10px;
+        margin: -5px 0 0 -5px;
+        border-radius: 9999px;
+        background: var(--color-wonder);
+        pointer-events: none;
+        z-index: 100;
+        transition:
+            width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+            height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+            margin 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+            background-color 0.3s ease,
+            opacity 0.3s ease;
+        will-change: transform;
+    }
+
+    .cursor-dot[data-cursor-hover='true'] {
+        width: 40px;
+        height: 40px;
+        margin: -20px 0 0 -20px;
+        background: color-mix(in oklab, var(--color-wonder) 35%, transparent);
+    }
+}
+
+@keyframes wonderwater-rise {
+    0% {
+        transform: translateY(0) scale(0.85);
+        opacity: 0;
+    }
+    10% {
+        opacity: var(--bubble-opacity, 0.4);
+    }
+    90% {
+        opacity: var(--bubble-opacity, 0.4);
+    }
+    100% {
+        transform: translateY(-114vh) scale(1.15);
+        opacity: 0;
+    }
+}
+
+@keyframes wonderwater-orbit {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes wonderwater-pulse {
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.15);
+        opacity: 0.82;
+    }
+}
+
+@keyframes wonderwater-marquee {
+    to {
+        transform: translateX(-50%);
+    }
+}
