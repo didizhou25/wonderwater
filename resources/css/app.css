@@ -214,17 +214,6 @@
         }
     }
 
-    /* Infinite marquee ticker — two identical tracks side by side, shifted by -50%. */
-    .marquee-track {
-        animation: wonderwater-marquee var(--marquee-duration, 26s) linear infinite;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        .marquee-track {
-            animation: none;
-        }
-    }
-
     /* Horizontal drag/scroll strip (science parameters). */
     .snap-strip {
         scroll-snap-type: x proximity;
@@ -314,11 +303,5 @@
     50% {
         transform: scale(1.15);
         opacity: 0.82;
-    }
-}
-
-@keyframes wonderwater-marquee {
-    to {
-        transform: translateX(-50%);
     }
 }

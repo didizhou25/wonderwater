@@ -196,6 +196,43 @@ if ('IntersectionObserver' in window && techPanels.length) {
     techPanels.forEach((panel) => techObserver.observe(panel));
 }
 
+// Bubble fields: the Laravel views render bubbles server-side via <x-bubble-field>,
+// but the static Cloudflare build has no backend to do that, so [data-bubble-field]
+// containers there start empty and get populated here instead (Laravel-rendered
+// containers already have children and are skipped).
+document.querySelectorAll('[data-bubble-field]').forEach((field) => {
+    if (field.children.length) return;
+
+    const count = Number(field.dataset.bubbleCount) || 24;
+    const variant = field.dataset.bubbleVariant === 'light' ? 'light' : 'dark';
+
+    for (let i = 0; i < count; i += 1) {
+        const bubble = document.createElement('span');
+        bubble.className = `bubble bubble--${variant}`;
+        bubble.style.cssText = [
+            `--bubble-size: ${3 + Math.random() * 11}px`,
+            `--bubble-left: ${2 + Math.random() * 96}%`,
+            `--bubble-duration: ${12 + Math.random() * 16}s`,
+            `--bubble-delay: ${-(Math.random() * 24)}s`,
+            `--bubble-opacity: ${0.15 + Math.random() * 0.35}`,
+            `--bubble-blur: ${Math.random() * 0.7}px`,
+        ].join('; ');
+        field.appendChild(bubble);
+    }
+});
+
+// Static Cloudflare preview build has no backend for the waitlist form, so it
+// swaps straight to the "joined" state client-side instead of posting anywhere.
+const staticWaitlistForm = document.querySelector('[data-static-waitlist-form]');
+
+if (staticWaitlistForm) {
+    staticWaitlistForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        document.querySelector('[data-static-waitlist-wrap]')?.classList.add('hidden');
+        document.querySelector('[data-static-waitlist-success]')?.classList.remove('hidden');
+    });
+}
+
 // Science section: horizontal drag-to-scroll + wheel-to-horizontal on the snap-strip.
 const snapStrip = document.querySelector('[data-snap-strip]');
 
