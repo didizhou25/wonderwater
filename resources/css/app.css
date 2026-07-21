@@ -251,17 +251,6 @@
         }
     }
 
-    /* Coming-soon teaser: an indeterminate progress sweep, hinting at work in progress. */
-    .teaser-progress {
-        animation: wonderwater-progress-sweep 2.6s ease-in-out infinite;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        .teaser-progress {
-            animation: none;
-        }
-    }
-
     /* Shared premium hover: buttons/cards ease with the same signature curve. */
     .ease-premium {
         transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
