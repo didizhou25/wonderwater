@@ -34,7 +34,7 @@
                 <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(10,13,12,0.75)_100%)]"></div>
             </div>
 
-            <p class="font-display pointer-events-none absolute top-1/2 left-1/2 w-screen -translate-x-1/2 -translate-y-1/2 overflow-hidden text-center text-[15vw] leading-[0.85] font-light whitespace-nowrap text-paper/[0.025] select-none">
+            <p class="font-display pointer-events-none absolute top-1/2 left-1/2 w-screen -translate-x-1/2 -translate-y-1/2 overflow-hidden text-center text-[19vw] leading-[0.85] font-light whitespace-nowrap text-paper/[0.03] select-none">
                 WONDER<br>WATER
             </p>
 
