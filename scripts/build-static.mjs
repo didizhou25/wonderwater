@@ -128,7 +128,7 @@ const siteFooter = () => `
                     <div>
                         <p class="text-xs font-medium tracking-[0.15em] text-ink/40 uppercase">Contact</p>
                         <ul class="mt-4 space-y-3 text-sm">
-                            <li><a href="mailto:hello@wonderwater.nl" class="text-ink/70 transition-colors hover:text-ink">hello@wonderwater.nl</a></li>
+                            <li><a href="mailto:info@wonderwater.nl" class="text-ink/70 transition-colors hover:text-ink">info@wonderwater.nl</a></li>
                             <li><a href="#" class="text-ink/70 transition-colors hover:text-ink">Instagram</a></li>
                             <li><a href="#" class="text-ink/70 transition-colors hover:text-ink">LinkedIn</a></li>
                         </ul>

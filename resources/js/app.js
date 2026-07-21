@@ -170,6 +170,34 @@ if (cursorDot && window.matchMedia('(pointer: fine)').matches) {
             cursorDot.removeAttribute('data-cursor-hover');
         }
     });
+
+    // A droplet-hitting-water splash: a quick flash at the point of impact,
+    // then a few concentric rings rippling outward at staggered delays.
+    document.addEventListener('pointerdown', (event) => {
+        if (event.pointerType && event.pointerType !== 'mouse') return;
+
+        cursorDot.setAttribute('data-cursor-active', 'true');
+
+        const splash = document.createElement('span');
+        splash.className = 'cursor-splash';
+        splash.style.left = `${event.clientX}px`;
+        splash.style.top = `${event.clientY}px`;
+
+        const core = document.createElement('span');
+        core.className = 'cursor-splash__core';
+        splash.appendChild(core);
+
+        const ring = document.createElement('span');
+        ring.className = 'cursor-splash__ring';
+        splash.appendChild(ring);
+
+        document.body.appendChild(splash);
+        setTimeout(() => splash.remove(), 1800);
+    });
+
+    window.addEventListener('pointerup', () => {
+        cursorDot.removeAttribute('data-cursor-active');
+    });
 }
 
 // Technologies section: pinned visual + scroll-spy over the three tall panels.

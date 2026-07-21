@@ -181,6 +181,87 @@
         }
     }
 
+    /* Generative visual: liquid filling the droplet glass (product panel). */
+    .glass-fill {
+        transform: translateY(150px);
+        transition: transform 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s;
+    }
+
+    [data-revealed='true'] .glass-fill {
+        transform: translateY(0);
+    }
+
+    .glass-wave-1,
+    .glass-wave-2 {
+        animation: wonderwater-wave-drift 6s ease-in-out infinite;
+    }
+
+    .glass-wave-2 {
+        animation-duration: 8s;
+        animation-direction: reverse;
+    }
+
+    .glass-bubble {
+        transform-box: fill-box;
+        transform-origin: center;
+        opacity: 0;
+        animation: wonderwater-glass-bubble 4.5s ease-in infinite;
+        animation-delay: var(--bubble-delay, 0s);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .glass-fill {
+            transition: none;
+            transform: translateY(0);
+        }
+
+        .glass-wave-1,
+        .glass-wave-2 {
+            animation: none;
+        }
+
+        .glass-bubble {
+            animation: none;
+            opacity: 0.4;
+        }
+    }
+
+    /* Science parameter cards: a soft ripple blooms outward from the center on hover. */
+    .param-ripple {
+        top: 50%;
+        left: 50%;
+        width: 10px;
+        height: 10px;
+        margin: -5px 0 0 -5px;
+        transform: scale(0);
+        opacity: 0;
+        transition:
+            transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .param-box:hover .param-ripple {
+        transform: scale(14);
+        opacity: 0.5;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .param-ripple {
+            transition: none;
+        }
+    }
+
+    /* Coming-soon teaser: an indeterminate progress sweep, hinting at work in progress. */
+    .teaser-progress {
+        animation: wonderwater-progress-sweep 2.6s ease-in-out infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .teaser-progress {
+            animation: none;
+        }
+    }
+
     /* Shared premium hover: buttons/cards ease with the same signature curve. */
     .ease-premium {
         transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
@@ -247,27 +328,115 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: 10px;
-        height: 10px;
-        margin: -5px 0 0 -5px;
+        width: 16px;
+        height: 16px;
+        margin: -8px 0 0 -8px;
         border-radius: 9999px;
-        background: var(--color-wonder);
+        border: 1.5px solid color-mix(in oklab, var(--color-wonder) 65%, transparent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
         pointer-events: none;
         z-index: 100;
         transition:
-            width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-            height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-            margin 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-            background-color 0.3s ease,
+            width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+            height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+            margin 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+            border-color 0.4s ease,
             opacity 0.3s ease;
         will-change: transform;
     }
 
+    .cursor-dot__core {
+        width: 5px;
+        height: 5px;
+        border-radius: 9999px;
+        background: var(--color-wonder);
+        transition:
+            width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+            height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 0.4s ease;
+    }
+
     .cursor-dot[data-cursor-hover='true'] {
-        width: 40px;
-        height: 40px;
-        margin: -20px 0 0 -20px;
-        background: color-mix(in oklab, var(--color-wonder) 35%, transparent);
+        width: 28px;
+        height: 28px;
+        margin: -14px 0 0 -14px;
+        border-color: color-mix(in oklab, var(--color-wonder) 85%, transparent);
+    }
+
+    .cursor-dot[data-cursor-hover='true'] .cursor-dot__core {
+        width: 4px;
+        height: 4px;
+        opacity: 0.5;
+    }
+
+    .cursor-dot[data-cursor-active='true'] {
+        width: 12px;
+        height: 12px;
+        margin: -6px 0 0 -6px;
+        transition-duration: 0.15s;
+    }
+
+    /* Click splash: a droplet hitting water — a quick flash at the point of
+       impact, then concentric rings rippling outward at staggered delays. */
+    .cursor-splash {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        pointer-events: none;
+        z-index: 99;
+    }
+
+    .cursor-splash__core {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 6px;
+        height: 6px;
+        margin: -3px 0 0 -3px;
+        border-radius: 9999px;
+        background: var(--color-wonder);
+        transform-origin: center;
+        animation: wonderwater-splash-core 0.25s ease-out forwards;
+    }
+
+    .cursor-splash__ring {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 8px;
+        height: 8px;
+        margin: -4px 0 0 -4px;
+        border-radius: 9999px;
+        border: 0.75px solid color-mix(in oklab, var(--color-wonder) 55%, transparent);
+        opacity: 0;
+        transform-origin: center;
+        animation: wonderwater-splash-ring 1.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    }
+}
+
+@keyframes wonderwater-splash-core {
+    0% {
+        transform: scale(0.6);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@keyframes wonderwater-splash-ring {
+    0% {
+        transform: scale(0.6);
+        opacity: 0.3;
+    }
+    100% {
+        transform: scale(10);
+        opacity: 0;
     }
 }
 
@@ -291,6 +460,43 @@
 @keyframes wonderwater-orbit {
     to {
         transform: rotate(360deg);
+    }
+}
+
+@keyframes wonderwater-progress-sweep {
+    0%,
+    100% {
+        transform: translateX(-15%);
+    }
+    50% {
+        transform: translateX(210%);
+    }
+}
+
+@keyframes wonderwater-wave-drift {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(-40px);
+    }
+}
+
+@keyframes wonderwater-glass-bubble {
+    0% {
+        transform: translateY(0) scale(0.8);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.7;
+    }
+    85% {
+        opacity: 0.45;
+    }
+    100% {
+        transform: translateY(-95px) scale(1.1);
+        opacity: 0;
     }
 }
 

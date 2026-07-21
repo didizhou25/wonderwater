@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="{{ app()->getLocale() }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Join the Movement — WonderWater</title>
-        <meta name="description" content="Word lid van de WonderWater movement. Vanaf €5 per liter, altijd vers geleverd, geen apparaten.">
+        <title>Join the Movement: WonderWater</title>
+        <meta name="description" content="{{ __('Word lid van de WonderWater movement. Vanaf €5 per liter, altijd vers geleverd, geen apparaten.') }}">
 
         <script>document.documentElement.classList.add('js-ready')</script>
 
@@ -14,7 +14,9 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="bg-ink font-sans text-paper antialiased">
-        <div data-cursor-dot class="cursor-dot" style="opacity: 0"></div>
+        <div data-cursor-dot class="cursor-dot" style="opacity: 0">
+            <span class="cursor-dot__core"></span>
+        </div>
 
         @include('partials.site-nav')
 
@@ -29,16 +31,16 @@
             <div class="relative z-10 mx-auto w-full max-w-md">
                 <div class="text-center" data-reveal>
                     <a href="{{ route('home') }}" class="ease-premium text-xs tracking-[0.3em] text-paper/40 uppercase transition-colors duration-400 hover:text-paper/70">
-                        &larr; Terug naar WonderWater
+                        &larr; {{ __('Terug naar WonderWater') }}
                     </a>
 
                     <p class="mt-10 text-xs font-medium tracking-[0.4em] text-wonder uppercase">The New Standard.</p>
                     <h1 class="font-display mt-4 text-4xl font-light md:text-5xl">Join the Movement</h1>
                     <p class="mx-auto mt-4 max-w-sm text-sm leading-relaxed text-paper/70">
                         @if ($signupCount > 0)
-                            Sluit je aan bij {{ $signupCount }} {{ Str::plural('pionier', $signupCount) }} die kiezen voor de toekomst van water.
+                            {{ trans_choice('Sluit je aan bij :count pionier die kiezen voor de toekomst van water.|Sluit je aan bij :count pioniers die kiezen voor de toekomst van water.', $signupCount, ['count' => $signupCount]) }}
                         @else
-                            Word een van de eerste leden en kies voor de toekomst van water.
+                            {{ __('Word een van de eerste leden en kies voor de toekomst van water.') }}
                         @endif
                     </p>
                 </div>
@@ -46,10 +48,10 @@
                 <div class="mt-14" data-reveal style="transition-delay: 150ms">
                     @if (session('wonderwater_status') === 'joined')
                         <div class="rounded-2xl border border-wonder/30 bg-wonder/10 px-8 py-10 text-center">
-                            <p class="font-display text-2xl text-wonder">Welkom bij de movement.</p>
-                            <p class="mt-3 text-sm text-paper/70">We nemen zo snel mogelijk contact met je op.</p>
+                            <p class="font-display text-2xl text-wonder">{{ __('Welkom bij de movement.') }}</p>
+                            <p class="mt-3 text-sm text-paper/70">{{ __('We nemen zo snel mogelijk contact met je op.') }}</p>
                             <a href="{{ route('home') }}" class="ease-premium mt-8 inline-flex items-center rounded-full border border-paper/30 px-6 py-2.5 text-xs font-medium tracking-[0.15em] text-paper uppercase transition-all duration-400 hover:border-paper hover:shadow-[0_0_20px_rgba(184,243,228,0.2)]">
-                                Terug naar de homepage
+                                {{ __('Terug naar de homepage') }}
                             </a>
                         </div>
                     @else
@@ -60,19 +62,19 @@
                             <input type="text" name="company_website" tabindex="-1" autocomplete="off" class="absolute -left-[9999px]" aria-hidden="true">
 
                             <div>
-                                <label for="name" class="text-xs tracking-[0.15em] text-paper/50 uppercase">Naam (optioneel)</label>
+                                <label for="name" class="text-xs tracking-[0.15em] text-paper/50 uppercase">{{ __('Naam (optioneel)') }}</label>
                                 <input
                                     id="name"
                                     name="name"
                                     type="text"
                                     value="{{ old('name') }}"
-                                    placeholder="Je naam"
+                                    placeholder="{{ __('Je naam') }}"
                                     class="ease-premium mt-2 w-full border-0 border-b border-paper/20 bg-transparent px-0 py-3 text-paper placeholder:text-paper/25 transition-colors duration-400 focus:border-wonder focus:ring-0 focus:outline-none"
                                 >
                             </div>
 
                             <div class="mt-6">
-                                <label for="email" class="text-xs tracking-[0.15em] text-paper/50 uppercase">E-mailadres</label>
+                                <label for="email" class="text-xs tracking-[0.15em] text-paper/50 uppercase">{{ __('E-mailadres') }}</label>
                                 <input
                                     id="email"
                                     name="email"
@@ -88,7 +90,7 @@
                             </div>
 
                             <fieldset class="mt-8">
-                                <legend class="text-xs tracking-[0.15em] text-paper/50 uppercase">Interesse</legend>
+                                <legend class="text-xs tracking-[0.15em] text-paper/50 uppercase">{{ __('Interesse') }}</legend>
                                 <div class="mt-3 grid grid-cols-3 gap-2">
                                     @foreach (['drink' => 'Drink', 'skin' => 'Skin', 'both' => 'Beide'] as $value => $label)
                                         <label class="cursor-pointer">
@@ -100,7 +102,7 @@
                                                 class="peer sr-only"
                                             >
                                             <span class="ease-premium block rounded-full border border-paper/20 py-2.5 text-center text-xs tracking-[0.1em] text-paper/60 uppercase transition-all duration-400 peer-checked:border-wonder peer-checked:bg-wonder/10 peer-checked:text-wonder peer-checked:shadow-[0_0_16px_rgba(184,243,228,0.15)]">
-                                                {{ $label }}
+                                                {{ __($label) }}
                                             </span>
                                         </label>
                                     @endforeach
@@ -111,12 +113,12 @@
                                 type="submit"
                                 class="ease-premium mt-10 w-full rounded-full bg-paper px-8 py-4 text-xs font-medium tracking-[0.15em] text-ink uppercase transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_35px_rgba(184,243,228,0.35)]"
                             >
-                                Word lid
+                                {{ __('Word lid') }}
                             </button>
                         </form>
 
                         <p class="mt-6 text-center text-xs text-paper/40">
-                            Door je aan te melden ga je akkoord met ons <a href="#" class="underline underline-offset-2 hover:text-paper/70">privacybeleid</a>.
+                            {!! __('Door je aan te melden ga je akkoord met ons :link.', ['link' => '<a href="#" class="underline underline-offset-2 hover:text-paper/70">'.__('privacybeleid').'</a>']) !!}
                         </p>
                     @endif
                 </div>

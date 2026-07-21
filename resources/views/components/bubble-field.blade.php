@@ -1,12 +1,14 @@
 @props([
     'count' => 24,
     'variant' => 'dark',
+    'minSize' => 3,
+    'maxSize' => 14,
 ])
 
 <div {{ $attributes->merge(['class' => 'pointer-events-none absolute inset-0 overflow-hidden']) }} aria-hidden="true">
     @for ($i = 0; $i < $count; $i++)
         @php
-            $size = random_int(3, 14);
+            $size = random_int($minSize, $maxSize);
             $left = random_int(2, 98);
             $duration = random_int(12, 28);
             $delay = random_int(0, 24) * -1;
