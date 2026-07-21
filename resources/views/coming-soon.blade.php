@@ -87,13 +87,13 @@
                     </p>
                 </div>
 
-                <h1 class="mt-3 font-display text-5xl leading-[0.95] font-light tracking-tight sm:text-6xl md:text-7xl">
+                <h1 class="mt-3 font-display text-6xl leading-[0.95] font-light tracking-tight sm:text-7xl md:text-8xl">
                     <span data-split class="block">The Future</span>
                     <span data-split class="block">of Water.</span>
                 </h1>
 
                 {{-- Cycling, cryptic status line for a "something is being prepared" feel --}}
-                <div class="mt-5 h-5" data-reveal style="transition-delay: 220ms">
+                <div class="mt-7 h-5" data-reveal style="transition-delay: 220ms">
                     <p data-teaser-status class="font-display text-sm text-wonder/80 italic transition-opacity duration-500">
                         {{ __('Formule wordt gekalibreerd') }}&hellip;
                     </p>
@@ -103,40 +103,6 @@
                     <div class="relative h-px w-full overflow-hidden rounded-full bg-paper/10">
                         <span class="teaser-progress absolute inset-y-0 left-0 w-1/3 rounded-full bg-wonder/70"></span>
                     </div>
-                </div>
-
-                <div class="mt-7 w-full max-w-sm" data-reveal style="transition-delay: 340ms">
-                    @if (session('wonderwater_status') === 'joined')
-                        <div class="rounded-full border border-wonder/30 bg-wonder/10 px-6 py-3.5 text-center">
-                            <p class="text-xs font-medium tracking-[0.15em] text-wonder uppercase">{{ __('Je staat op de lijst.') }}</p>
-                        </div>
-                    @else
-                        <form method="POST" action="{{ route('waitlist.join') }}" class="flex flex-col gap-2.5 sm:flex-row">
-                            @csrf
-
-                            {{-- Honeypot — hidden from real visitors, left blank by them --}}
-                            <input type="text" name="company_website" tabindex="-1" autocomplete="off" class="absolute -left-[9999px]" aria-hidden="true">
-
-                            <input
-                                id="email"
-                                name="email"
-                                type="email"
-                                required
-                                value="{{ old('email') }}"
-                                placeholder="{{ __('jouw@email.nl') }}"
-                                class="ease-premium w-full flex-1 rounded-full border border-paper/20 bg-paper/[0.02] px-5 py-3 text-sm text-paper placeholder:text-paper/30 transition-colors duration-400 focus:border-wonder focus:ring-0 focus:outline-none"
-                            >
-                            <button
-                                type="submit"
-                                class="ease-premium inline-flex shrink-0 items-center justify-center rounded-full bg-paper px-6 py-3 text-xs font-semibold tracking-[0.15em] text-ink uppercase transition-all duration-500 hover:scale-[1.03] hover:shadow-[0_0_35px_rgba(184,243,228,0.4)]"
-                            >
-                                {{ __('Hou me op de hoogte') }}
-                            </button>
-                        </form>
-                        @error('email')
-                            <p class="mt-2 text-xs text-rose-300">{{ $message }}</p>
-                        @enderror
-                    @endif
                 </div>
             </div>
 
