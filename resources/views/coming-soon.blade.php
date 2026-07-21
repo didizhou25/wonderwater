@@ -59,9 +59,9 @@
                         </defs>
 
                         <g clip-path="url(#teaserDropletClip)">
-                            <g class="glass-fill">
-                                <path class="glass-wave glass-wave-1" d="M-60 100 C -35 90 -10 110 15 100 C40 90 65 110 90 100 C115 90 140 110 165 100 C190 90 215 110 240 100 C265 90 290 110 315 100 V240 H-60 Z" fill="#0f6a5a" fill-opacity="0.4" />
-                                <path class="glass-wave glass-wave-2" d="M-60 104 C -35 116 -10 92 15 104 C40 116 65 92 90 104 C115 116 140 92 165 104 C190 116 215 92 240 104 C265 116 290 92 315 104 V240 H-60 Z" fill="#b8f3e4" fill-opacity="0.3" />
+                            <g class="glass-fill" style="transition-duration: 7s; transition-delay: 0.4s;">
+                                <path class="glass-wave glass-wave-1" d="M-60 100 C -35 90 -10 110 15 100 C40 90 65 110 90 100 C115 90 140 110 165 100 C190 90 215 110 240 100 C265 90 290 110 315 100 V240 H-60 Z" fill="#0f6a5a" fill-opacity="0.4" style="animation: none;" />
+                                <path class="glass-wave glass-wave-2" d="M-60 104 C -35 116 -10 92 15 104 C40 116 65 92 90 104 C115 116 140 92 165 104 C190 116 215 92 240 104 C265 116 290 92 315 104 V240 H-60 Z" fill="#b8f3e4" fill-opacity="0.3" style="animation: none;" />
                             </g>
                         </g>
 
@@ -97,12 +97,6 @@
                     <p data-teaser-status class="font-display text-sm text-wonder/80 italic transition-opacity duration-500">
                         {{ __('Formule wordt gekalibreerd') }}&hellip;
                     </p>
-                </div>
-
-                <div class="mt-2 w-40" data-reveal style="transition-delay: 260ms">
-                    <div class="relative h-px w-full overflow-hidden rounded-full bg-paper/10">
-                        <span class="teaser-progress absolute inset-y-0 left-0 w-1/3 rounded-full bg-wonder/70"></span>
-                    </div>
                 </div>
             </div>
 
