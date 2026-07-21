@@ -452,16 +452,6 @@
     }
 }
 
-@keyframes wonderwater-progress-sweep {
-    0%,
-    100% {
-        transform: translateX(-15%);
-    }
-    50% {
-        transform: translateX(210%);
-    }
-}
-
 @keyframes wonderwater-wave-drift {
     0%,
     100% {
