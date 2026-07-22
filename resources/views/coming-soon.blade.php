@@ -8,6 +8,12 @@
         <meta name="description" content="{{ __('WonderWater is waterstofrijk water met een negatieve ORP en deuteriumarm water. Geen apparaten, geen abonnement-gedoe, vanaf €5 per liter, altijd vers geleverd.') }}">
         <meta name="robots" content="noindex, nofollow">
 
+        <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon-16x16.png') }}">
+        <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('images/favicon-192x192.png') }}">
+        <link rel="apple-touch-icon" href="{{ asset('images/apple-touch-icon.png') }}">
+
         <script>document.documentElement.classList.add('js-ready')</script>
 
         @fonts
