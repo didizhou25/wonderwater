@@ -94,8 +94,8 @@
                 </div>
 
                 <h1 class="mt-3 font-display text-6xl leading-[0.95] font-light tracking-tight sm:text-7xl md:text-8xl">
-                    <span data-split class="block">The Future</span>
-                    <span data-split class="block">of Water.</span>
+                    <span data-split class="block">{{ __('De toekomst') }}</span>
+                    <span data-split class="block">{{ __('van water.') }}</span>
                 </h1>
 
                 {{-- Cycling, cryptic status line for a "something is being prepared" feel --}}
