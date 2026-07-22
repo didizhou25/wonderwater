@@ -8,7 +8,7 @@
                     </span>
                     <p class="font-display text-xl tracking-[0.15em]">WONDERWATER</p>
                 </div>
-                <p class="mt-4 max-w-xs text-sm text-ink/60">The Future of Water. Drink Better.</p>
+                <p class="mt-4 max-w-xs text-sm text-ink/60">{{ __('De toekomst van water. Drink beter.') }}</p>
             </div>
 
             <div>

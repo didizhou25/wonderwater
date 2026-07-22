@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>WonderWater: The Future of Water.</title>
+        <title>WonderWater: {{ __('De toekomst van water.') }}</title>
         <meta name="description" content="{{ __('WonderWater is waterstofrijk water met een negatieve ORP en deuteriumarm water. Geen apparaten, geen abonnement-gedoe, vanaf €5 per liter, altijd vers geleverd.') }}">
 
         <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
